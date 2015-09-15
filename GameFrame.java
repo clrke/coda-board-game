@@ -44,12 +44,12 @@ public class GameFrame extends JFrame {
         this.setSize(1000, 700);
     }
 
-    public void providePlayerWithTile(PiecePanel piece) {
+    public PlayerPanel getPlayer() {
         for (PlayerPanel player : pnlPlayers) {
             if (player.isHuman) {
-                player.add(piece);
-                break;
+                return player;
             }
         }
+        return pnlPlayers[0];
     }
 }

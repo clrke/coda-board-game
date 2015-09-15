@@ -42,9 +42,8 @@ public class BoardPanel extends JPanel {
         }
     }
 
-    public PiecePanel popTile() throws NoTilesLeftException {
+    public PiecePanel popTile(int pieceIndex) throws NoTilesLeftException {
         if ( ! this.noTilesLeft()) {
-            int pieceIndex = (int)(Math.random() * this.pieces.size());
             PiecePanel piece = this.pieces.remove(pieceIndex);
 
             JPanel emptyPanel = new JPanel();
@@ -59,12 +58,31 @@ public class BoardPanel extends JPanel {
         throw new NoTilesLeftException();
     }
 
+    public PiecePanel popTile() throws NoTilesLeftException {
+        return this.popTile((int)(Math.random() * this.pieces.size()));
+    }
+
     public boolean noTilesLeft() {
         return this.pieces.size() == 0;
     }
 
     public void providePlayerWithTile(PiecePanel piece) {
-        gameFrame.providePlayerWithTile(piece);
-        piece.isPicked = true;
+        PlayerPanel player = gameFrame.getPlayer();
+
+        try {
+            int pieceIndex = 0;
+
+            for(int i = 0; i < this.pieces.size(); i++) {
+                if (piece == this.pieces.get(i)) {
+                    pieceIndex = i;
+                    break;
+                }
+            }
+
+            player.add(this.popTile(pieceIndex));
+
+        } catch(NoTilesLeftException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -91,5 +91,6 @@ public class PiecePanel extends JPanel {
 
     public void providePlayerWithTile(PiecePanel piece) {
         this.arbiter.providePlayerWithTile(piece);
+        this.revealToPlayer();
     }
 }
