@@ -52,6 +52,8 @@ public class BoardPanel extends JPanel {
 
             this.add(emptyPanel, piece.index + 1);
 
+            piece.isPicked = true;
+
             return piece;
         }
         throw new NoTilesLeftException();
@@ -63,5 +65,6 @@ public class BoardPanel extends JPanel {
 
     public void providePlayerWithTile(PiecePanel piece) {
         gameFrame.providePlayerWithTile(piece);
+        piece.isPicked = true;
     }
 }
