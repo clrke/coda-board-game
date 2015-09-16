@@ -69,6 +69,12 @@ public class BoardPanel extends JPanel {
     public void providePlayerWithTile(PiecePanel piece) {
         PlayerPanel player = gameFrame.getPlayer();
 
+        if(player.isHuman && piece.getValue().equals("-")) {
+            if(player.indexForDashTile < 0) {
+                return;
+            }
+        }
+
         try {
             int pieceIndex = 0;
 

@@ -13,5 +13,9 @@ public class VerticalPlayerPanel extends PlayerPanel {
     public VerticalPlayerPanel(Arbiter arbiter) {
         this(arbiter, false);
     }
+
+    public Component add(PiecePanel piece, int index) {
+        return super.add(piece, index);
+    }
 }
 
