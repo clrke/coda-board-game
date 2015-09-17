@@ -13,8 +13,11 @@ public class GameFrame extends JFrame {
     private HorizontalPlayerPanel pnlPlayer3;
     private VerticalPlayerPanel pnlPlayer4;
     private BoardPanel pnlBoard;
+    private InformationPanel pnlInformation;
+    private MainPanel pnlMain;
 
     private PlayerPanel[] pnlPlayers;
+    private GameState status;
 
     public GameFrame() {
         super("Coda Board Game");
@@ -24,20 +27,24 @@ public class GameFrame extends JFrame {
         this.setLayout(new BorderLayout());
 
         this.arbiter = new Arbiter();
-        this.pnlBoard = new BoardPanel(this.arbiter, this);
+        this.pnlMain = new MainPanel();
+        this.pnlBoard = new BoardPanel(this.arbiter, this.pnlMain);
+        this.pnlInformation = new InformationPanel();
 
-        this.arbiter.setBoardPanel(this.pnlBoard);
+        this.pnlMain.initialize(this.pnlBoard, this.pnlInformation, this);
 
-        this.pnlPlayer1 = new HorizontalPlayerPanel(this.arbiter, true);
-        this.pnlPlayer2 = new VerticalPlayerPanel(this.arbiter);
-        this.pnlPlayer3 = new HorizontalPlayerPanel(this.arbiter);
-        this.pnlPlayer4 = new VerticalPlayerPanel(this.arbiter);
+        this.arbiter.setMainPanel(this.pnlMain);
+
+        this.pnlPlayer1 = new HorizontalPlayerPanel(this.arbiter, "SOUTH PLAYER", true);
+        this.pnlPlayer2 = new VerticalPlayerPanel(this.arbiter, "WEST PLAYER");
+        this.pnlPlayer3 = new HorizontalPlayerPanel(this.arbiter, "NORTH PLAYER");
+        this.pnlPlayer4 = new VerticalPlayerPanel(this.arbiter, "EAST PLAYER");
 
         this.add(pnlPlayer1, BorderLayout.SOUTH);
         this.add(pnlPlayer2, BorderLayout.WEST);
         this.add(pnlPlayer3, BorderLayout.NORTH);
         this.add(pnlPlayer4, BorderLayout.EAST);
-        this.add(pnlBoard, BorderLayout.CENTER);
+        this.add(pnlMain, BorderLayout.CENTER);
 
         this.pnlPlayers = new PlayerPanel[]{pnlPlayer1, pnlPlayer2, pnlPlayer3, pnlPlayer4};
 
@@ -51,5 +58,13 @@ public class GameFrame extends JFrame {
             }
         }
         return pnlPlayers[0];
+    }
+
+    public void setStatus(GameState status) {
+        this.status = status;
+    }
+
+    public GameState getStatus() {
+        return status;
     }
 }

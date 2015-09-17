@@ -10,12 +10,12 @@ public class BoardPanel extends JPanel {
 
     private ArrayList<PiecePanel> pieces;
 
-    private GameFrame gameFrame;
+    private MainPanel pnlMain;
 
-    public BoardPanel(Arbiter arbiter, GameFrame gameFrame) {
+    public BoardPanel(Arbiter arbiter, MainPanel pnlMain) {
         super();
 
-        this.gameFrame = gameFrame;
+        this.pnlMain = pnlMain;
 
         this.setBackground(new Color(64, 196, 255));
 
@@ -67,10 +67,11 @@ public class BoardPanel extends JPanel {
     }
 
     public void providePlayerWithTile(PiecePanel piece) {
-        PlayerPanel player = gameFrame.getPlayer();
+        PlayerPanel player = pnlMain.getPlayer();
 
         if(player.isHuman && piece.getValue().equals("-")) {
             if(player.indexForDashTile < 0) {
+                pnlMain.setStatus(GameState.PLAYER_MUST_CHOOSE_POSITION_FOR_DASH_TILE);
                 return;
             }
         }
@@ -86,6 +87,8 @@ public class BoardPanel extends JPanel {
             }
 
             player.add(this.popTile(pieceIndex));
+
+            pnlMain.setStatus(GameState.PLAYER_MUST_CLICK_CONTINUE);
 
         } catch(NoTilesLeftException e) {
             System.out.println(e.getMessage());

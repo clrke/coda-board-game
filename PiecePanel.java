@@ -93,4 +93,25 @@ public class PiecePanel extends JPanel {
         this.arbiter.providePlayerWithTile(piece);
         this.revealToPlayer();
     }
+
+    public String getColorShortcut() {
+        if (this.color.getRed() == 0) {
+            return "B";
+        } else {
+            return "W";
+        }
+    }
+
+    public String getColorName() {
+        if (this.color.getRed() == 0) {
+            return "Black";
+        } else {
+            return "White";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.getColorShortcut() + this.getValue();
+    }
 }

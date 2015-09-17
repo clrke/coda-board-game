@@ -2,27 +2,27 @@ package coda;
 
 public class Arbiter {
 
-    private BoardPanel board;
+    private MainPanel pnlMain;
 
     public Arbiter() { }
 
-    public Arbiter(BoardPanel board) {
-        this.board = board;
+    public Arbiter(MainPanel pnlMain) {
+        this.pnlMain = pnlMain;
     }
 
-    public PiecePanel requestForRandomTile() throws NoTilesLeftException {
-        PiecePanel piece = this.board.popTile();
+    public PiecePanel requestForRandomTile(PlayerPanel requester) throws NoTilesLeftException {
+        PiecePanel piece = this.pnlMain.requestForRandomTile(requester);
 
-        this.board.validate();
+        this.pnlMain.validate();
 
         return piece;
     }
 
     public void providePlayerWithTile(PiecePanel piece) {
-        board.providePlayerWithTile(piece);
+        pnlMain.providePlayerWithTile(piece);
     }
 
-    public void setBoardPanel(BoardPanel boardPanel) {
-        this.board = boardPanel;
+    public void setMainPanel(MainPanel pnlMain) {
+        this.pnlMain = pnlMain;
     }
 }

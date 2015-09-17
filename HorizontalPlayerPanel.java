@@ -4,9 +4,10 @@ import java.awt.*;
 
 public class HorizontalPlayerPanel extends PlayerPanel {
 
-    public HorizontalPlayerPanel(Arbiter arbiter, boolean isHuman) {
+    public HorizontalPlayerPanel(Arbiter arbiter, String name, boolean isHuman) {
         super(arbiter, isHuman);
 
+        this.setName(name);
         this.setLayout(new GridLayout(2, 13, 10, 10));
 
         for (int i = 0; i < 26; i++) {
@@ -14,8 +15,8 @@ public class HorizontalPlayerPanel extends PlayerPanel {
         }
     }
 
-    public HorizontalPlayerPanel(Arbiter arbiter) {
-        this(arbiter, false);
+    public HorizontalPlayerPanel(Arbiter arbiter, String name) {
+        this(arbiter, name, false);
     }
 
     public Component add(PiecePanel piece, int index) {

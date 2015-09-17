@@ -71,7 +71,7 @@ public class PlayerPanel extends JPanel {
     }
 
     public PiecePanel requestForRandomTile() throws NoTilesLeftException {
-        return this.arbiter.requestForRandomTile();
+        return this.arbiter.requestForRandomTile(this);
     }
 
     public ArrayList<PiecePanel> getPieces() {
