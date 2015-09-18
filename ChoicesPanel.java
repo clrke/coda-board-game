@@ -12,4 +12,11 @@ public class ChoicesPanel extends JPanel {
 
         this.add(new ChoiceButton("Continue"));
     }
+
+    public void setButtons(ChoiceButton... buttons) {
+        this.removeAll();
+        for (ChoiceButton button : buttons) {
+            this.add(button);
+        }
+    }
 }

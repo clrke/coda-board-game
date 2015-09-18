@@ -62,6 +62,12 @@ public class GameFrame extends JFrame {
 
     public void setStatus(GameState status) {
         this.status = status;
+
+        if (status == GameState.PLAYER_MUST_CLICK_CONTINUE) {
+            this.pnlInformation.setButtons(new ChoiceButton("Continue"));
+        } else if (status == GameState.PLAYER_MUST_CHOOSE_POSITION_FOR_DASH_TILE) {
+            this.pnlInformation.setButtons();
+        }
     }
 
     public GameState getStatus() {

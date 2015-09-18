@@ -23,4 +23,8 @@ public class InformationPanel extends JPanel{
     public void log(String message) {
         this.txtLogs.log(message);
     }
+
+    public void setButtons(ChoiceButton... buttons) {
+        this.pnlOptions.setButtons(buttons);
+    }
 }
