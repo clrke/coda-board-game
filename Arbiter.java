@@ -1,5 +1,3 @@
-package coda;
-
 public class Arbiter {
 
     private MainPanel pnlMain;

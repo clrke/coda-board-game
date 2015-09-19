@@ -1,5 +1,3 @@
-package coda;
-
 import java.awt.*;
 
 public class HorizontalPlayerPanel extends PlayerPanel {

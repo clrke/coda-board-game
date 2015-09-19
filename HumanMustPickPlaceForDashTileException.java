@@ -1,5 +1,3 @@
-package coda;
-
 /**
  * Created by arkeidolon on 9/16/15.
  */

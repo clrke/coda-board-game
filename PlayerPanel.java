@@ -1,10 +1,6 @@
-package coda;
-
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class PlayerPanel extends JPanel {

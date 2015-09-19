@@ -1,5 +1,3 @@
-package coda;
-
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.util.ArrayList;

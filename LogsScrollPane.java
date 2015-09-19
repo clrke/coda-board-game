@@ -1,5 +1,3 @@
-package coda;
-
 import javax.swing.*;
 
 public class LogsScrollPane extends JScrollPane {

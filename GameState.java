@@ -1,5 +1,3 @@
-package coda;
-
 public enum GameState {
     PLAYER_MUST_CHOOSE_NUMBER_OF_PLAYERS,
     PLAYER_MUST_PICK_A_TILE,

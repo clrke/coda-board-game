@@ -1,5 +1,3 @@
-package coda;
-
 public class NoTilesLeftException extends Exception {
 
     public NoTilesLeftException() {
