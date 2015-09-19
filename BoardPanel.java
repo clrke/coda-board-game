@@ -28,9 +28,11 @@ public class BoardPanel extends JPanel {
         Color[] colors = Game.pieceColors;
         String[] values = Game.pieceValues;
 
+        PieceActionListener pieceActionListener = new PieceActionListener(this.pnlMain);
+
         for (Color color : colors) {
             for (String value : values) {
-                this.pieces.add(new PiecePanel(arbiter, color, value, false));
+                this.pieces.add(new PiecePanel(arbiter, color, value, pieceActionListener, false));
             }
         }
 
@@ -69,9 +71,10 @@ public class BoardPanel extends JPanel {
     public void providePlayerWithTile(PiecePanel piece) {
         PlayerPanel player = pnlMain.getPlayer();
 
-        if(player.isHuman && piece.getValue().equals("-")) {
-            if(player.indexForDashTile < 0) {
+        if(player.isHuman && piece.getValue().equals("-") && player.getPiecesCount() > 0) {
+            if(player.getIndexForDashTile() < 0) {
                 pnlMain.setStatus(GameState.PLAYER_MUST_CHOOSE_POSITION_FOR_DASH_TILE);
+                pnlMain.setChosenTile(piece);
                 return;
             }
         }

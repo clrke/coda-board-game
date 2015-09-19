@@ -12,7 +12,7 @@ public class PlayerPanel extends JPanel {
     public boolean isHuman;
     private Arbiter arbiter;
     protected boolean isSuccessful;
-    public int indexForDashTile;
+    protected int indexForDashTile;
 
     public PlayerPanel(Arbiter arbiter, boolean isHuman) {
         super();
@@ -24,50 +24,6 @@ public class PlayerPanel extends JPanel {
         this.setBackground(new Color(86, 119, 252));
 
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
-        this.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-                PlayerPanel source = (PlayerPanel) mouseEvent.getSource();
-
-                try {
-                    PiecePanel pieceToAdd = source.requestForRandomTile();
-
-                    if (source.isHuman) {
-                        pieceToAdd.revealToPlayer();
-                        if ( ! pieceToAdd.getValue().equals("-")) {
-                            source.add(pieceToAdd);
-                            source.getParent().validate();
-                        }
-                    } else {
-                        source.add(pieceToAdd);
-                        source.getParent().validate();
-                    }
-
-                } catch(NoTilesLeftException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
-
-            }
-        });
     }
 
     public PiecePanel requestForRandomTile() throws NoTilesLeftException {
@@ -122,6 +78,10 @@ public class PlayerPanel extends JPanel {
         return count;
     }
 
+    public boolean isDefeated() {
+        return this.getPiecesCount() == 0;
+    }
+
     public int getIndexFor(PiecePanel piece) {
         if (piece.getValue().equals("-")) {
             return (int) (Math.random() * this.getPiecesCount());
@@ -165,7 +125,7 @@ public class PlayerPanel extends JPanel {
 
     public Component add(PiecePanel piece) {
         if (this.isHuman) {
-            if (piece.getValue().equals("-")) {
+            if (piece.getValue().equals("-") && this.getPiecesCount() > 0 && ! piece.isRevealedToAll()) {
                 if (this.indexForDashTile < 0) {
                     this.isSuccessful = false;
                 } else {
@@ -183,5 +143,32 @@ public class PlayerPanel extends JPanel {
 
     public boolean isSuccessful() {
         return this.isSuccessful;
+    }
+
+    protected int getIndexOf(Component component) {
+        int i;
+        Component[] components = this.getComponents();
+        for (i = 0; i < this.getComponentCount(); i++) {
+            if (components[i] == component) {
+                return i;
+            }
+        }
+        return i;
+    }
+
+    public void setIndexForDashTile(PiecePanel piecePanel) {
+        this.setIndexForDashTile(this.getIndexOf(piecePanel));
+    }
+
+    public void setIndexForDashTile(int index, boolean definite) {
+        this.indexForDashTile = index;
+    }
+
+    public void setIndexForDashTile(int index) {
+        this.setIndexForDashTile(index, false);
+    }
+
+    public int getIndexForDashTile() {
+        return this.indexForDashTile;
     }
 }

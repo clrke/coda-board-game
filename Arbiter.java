@@ -25,4 +25,8 @@ public class Arbiter {
     public void setMainPanel(MainPanel pnlMain) {
         this.pnlMain = pnlMain;
     }
+
+    public boolean allowsProvision() {
+        return this.pnlMain.getStatus() == GameState.PLAYER_MUST_PICK_A_TILE;
+    }
 }

@@ -2,8 +2,6 @@ package coda;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PiecePanel extends JButton {
 
@@ -15,7 +13,8 @@ public class PiecePanel extends JButton {
     private boolean isRevealedToPlayer;
     public boolean isPicked;
 
-    public PiecePanel(Arbiter arbiter, Color color, String value, boolean isRevealedToAll) {
+    public PiecePanel(Arbiter arbiter, Color color, String value,
+                      PieceActionListener actionListener, boolean isRevealedToAll) {
         this.setBackground(color);
 
         this.arbiter = arbiter;
@@ -29,22 +28,11 @@ public class PiecePanel extends JButton {
 
         this.setFocusable(false);
 
-        this.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                PiecePanel piece = (PiecePanel) actionEvent.getSource();
-
-                if (piece.isPicked) {
-                    piece.revealToPlayer();
-                } else {
-                    piece.provideToPlayer();
-                }
-            }
-        });
+        this.addActionListener(actionListener);
     }
 
-    public PiecePanel(Arbiter arbiter, Color color, String value) {
-        this(arbiter, color, value, true);
+    public PiecePanel(Arbiter arbiter, Color color, String value, PieceActionListener actionListener) {
+        this(arbiter, color, value, actionListener, true);
     }
 
     public String getValue() {
@@ -58,6 +46,10 @@ public class PiecePanel extends JButton {
         }
     }
 
+    public boolean isRevealedToAll() {
+        return this.isRevealedToAll;
+    }
+
     public void revealToPlayer() {
         if ( ! this.isRevealedToPlayer) {
             this.isRevealedToPlayer = true;
@@ -67,9 +59,15 @@ public class PiecePanel extends JButton {
         }
     }
 
+    public boolean isRevealedToPlayer() {
+        return this.isRevealedToPlayer;
+    }
+
     public void provideToPlayer() {
-        this.arbiter.providePlayerWithTile(this);
-        this.revealToPlayer();
+        if (this.arbiter.allowsProvision()) {
+            this.arbiter.providePlayerWithTile(this);
+            this.revealToPlayer();
+        }
     }
 
     public String getColorShortcut() {

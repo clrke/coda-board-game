@@ -9,8 +9,6 @@ public class ChoicesPanel extends JPanel {
         super();
 
         this.setLayout(new GridLayout(1, 2));
-
-        this.add(new ChoiceButton("Continue"));
     }
 
     public void setButtons(ChoiceButton... buttons) {

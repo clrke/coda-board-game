@@ -24,6 +24,11 @@ public class HorizontalPlayerPanel extends PlayerPanel {
     }
 
     @Override
+    public void setIndexForDashTile(int index) {
+        this.indexForDashTile = index - this.getFillersCount();
+    }
+
+    @Override
     public void adjust() {
         if (this.getPiecesCount() % 2 != 0) {
             this.remove(0);

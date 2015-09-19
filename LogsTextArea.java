@@ -1,6 +1,7 @@
 package coda;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.util.Date;
 
 public class LogsTextArea extends JTextArea {
@@ -14,5 +15,7 @@ public class LogsTextArea extends JTextArea {
     @Override
     public void append(String message) {
         super.append(String.format("[%s] %s", new Date(), message));
+
+        this.setCaretPosition(this.getText().length());
     }
 }
