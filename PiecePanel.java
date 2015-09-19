@@ -37,7 +37,7 @@ public class PiecePanel extends JButton {
                 if (piece.isPicked) {
                     piece.revealToPlayer();
                 } else {
-                    piece.providePlayerWithTile(piece);
+                    piece.provideToPlayer();
                 }
             }
         });
@@ -67,8 +67,8 @@ public class PiecePanel extends JButton {
         }
     }
 
-    public void providePlayerWithTile(PiecePanel piece) {
-        this.arbiter.providePlayerWithTile(piece);
+    public void provideToPlayer() {
+        this.arbiter.providePlayerWithTile(this);
         this.revealToPlayer();
     }
 
