@@ -2,10 +2,10 @@ package coda;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PiecePanel extends JPanel {
+public class PiecePanel extends JButton {
 
     private Arbiter arbiter;
     public int index;
@@ -14,8 +14,6 @@ public class PiecePanel extends JPanel {
     private boolean isRevealedToAll;
     private boolean isRevealedToPlayer;
     public boolean isPicked;
-
-    private JLabel lblValue;
 
     public PiecePanel(Arbiter arbiter, Color color, String value, boolean isRevealedToAll) {
         this.setBackground(color);
@@ -26,41 +24,21 @@ public class PiecePanel extends JPanel {
         this.isRevealedToAll = isRevealedToAll;
         this.isPicked = false;
 
-        this.lblValue = new JLabel(this.isRevealedToAll ? value : "    ");
-        this.add(this.lblValue);
+        this.setForeground(this.color == Color.black ? Color.WHITE : Color.BLACK);
+        this.setText(" ");
 
-        this.lblValue.setForeground(this.color == Color.black ? Color.WHITE : Color.BLACK);
+        this.setFocusable(false);
 
-        this.addMouseListener(new MouseListener() {
+        this.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-                PiecePanel source = (PiecePanel) mouseEvent.getSource();
+            public void actionPerformed(ActionEvent actionEvent) {
+                PiecePanel piece = (PiecePanel) actionEvent.getSource();
 
-                if (source.isPicked) {
-                    source.revealToPlayer();
+                if (piece.isPicked) {
+                    piece.revealToPlayer();
                 } else {
-                    source.providePlayerWithTile(source);
+                    piece.providePlayerWithTile(piece);
                 }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
-
             }
         });
     }
@@ -83,7 +61,7 @@ public class PiecePanel extends JPanel {
     public void revealToPlayer() {
         if ( ! this.isRevealedToPlayer) {
             this.isRevealedToPlayer = true;
-            this.lblValue.setText(this.value);
+            this.setText(this.value);
 
             this.getParent().validate();
         }
